@@ -27,10 +27,10 @@ build:
     - aws configure set aws_access_key_id ${ECR_ACCESS_KEY_ID}
     - aws configure set aws_secret_access_key ${ECR_SECRET_ACCESS_KEY}
     - $(aws ecr get-login)
-    - docker build -t ${AWS_ACCOUNT_ID}.dkr.ecr.eu-west-1.amazonaws.com/${REPO_NAME}:$(echo ${COMMIT}| cut -c1-8) -t ${AWS_ACCOUNT_ID}.dkr.ecr.eu-west-1.amazonaws.com/${REPO_NAME}:latest .
+    - docker build -t ${AWS_ACCOUNT_ID}.dkr.ecr.eu-west-1.amazonaws.com/${REPO_NAME}:latest .
   post_ci:
     - if ! aws ecr describe-repositories --repository-names ${REPO_NAME} > /dev/null 2>&1; then aws ecr create-repository --repository-name ${REPO_NAME}; fi
-    - docker push ${AWS_ACCOUNT_ID}.dkr.ecr.eu-west-1.amazonaws.com/${REPO_NAME}:$(echo ${COMMIT}| cut -c1-8)
+    # - docker push ${AWS_ACCOUNT_ID}.dkr.ecr.eu-west-1.amazonaws.com/${REPO_NAME}:$(echo ${COMMIT}| cut -c1-8)
     - docker push ${AWS_ACCOUNT_ID}.dkr.ecr.eu-west-1.amazonaws.com/${REPO_NAME}:latest
   # on_success:
   #   - #command1
