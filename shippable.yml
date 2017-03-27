@@ -7,11 +7,11 @@ env:
     - DOCKER_TAG=$(echo ${COMMIT}| cut -c1-8)
 
 build:
-  pre_ci_boot:
-    image_name: quay.io/mojanalytics/analytics-ci
-    image_tag: latest
-    pull: true
-    options: "-e HOME=/root"
+  # pre_ci_boot:
+  #   image_name: quay.io/mojanalytics/analytics-ci
+  #   image_tag: latest
+  #   pull: true
+  #   options: "-e HOME=/root"
 
   ci:
     - docker build -t ${DOCKER_IMAGE_NAME}:${DOCKER_TAG} .
