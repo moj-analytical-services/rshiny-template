@@ -2,8 +2,7 @@ language: none
 
 env:
   global:
-    - secure: eUv62dRtLrSxdWzN0/C4oMAHc4vY2e7NkIH+Kq9lr840g7KiSx0RIi55PQ+7e/IW9UV9Jmd3bfLNXeD5vJIXLj3Wtzm+uZQrGP0IOXkMkcq7XRNUHD/Q0UurCqNW6meij+Z6lNR/pvE2359FLgw4+NrgCYxOe5kT/uyQvDDaWY3yhmibrmmQmQbe6ivKohb1iR93D8B8Ccg7HUxYk7GY5MzRQ2eTCN8unB808ULqvkzu2ZF7//yGyLUJrGt3zuNvj3eK6oTlAHyUHX1zM5T4gq8WGno69sBLC5Ct//4d58RyElgBvL3SVYuRV2AQFU/U6E2XMy/yxMMrnjRTdCQWJQ==
-    - DOCKER_IMAGE_NAME=${AWS_ACCOUNT_ID}.dkr.ecr.eu-west-1.amazonaws.com/${REPO_NAME}
+    - DOCKER_IMAGE_NAME=593291632749.dkr.ecr.eu-west-1.amazonaws.com/${REPO_NAME}
     - DOCKER_TAG=$(echo ${COMMIT}| cut -c1-8)
 
 build:
