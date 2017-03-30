@@ -2,7 +2,7 @@ language: none
 
 env:
   global:
-    - secure: VHlF2bdUxQy7UeBuId3RmNRkJYI8b26JxOo8sdqlaNCGeOBOVaCv2jUMEjNXLV9b7agbEayAn01H2dReibawrKSFcm93bFn5o67o8raGy7OZ8AIRsnntCp14xD1ewGUsu/Ci0/dPFRQOiS+TBY/gW3YpKrhfGYeN8wRlw7L+AikpJBnsCHpqhViu7eNwUpj+tIXGxxlkqSHbj1IqCbEdrZ1wqs0jyzfakxOIctoaAAUKw5SNJSRdgOoZxf36ZZhkksZq4f0xBISwJqErYGJr31Q2SZRuxo84nZsF/Of8sE4JOVvCAIGeGMKhwTNuD3hc/MInRij+BV2xh2llVhSoWQ==
+    - secure: eUv62dRtLrSxdWzN0/C4oMAHc4vY2e7NkIH+Kq9lr840g7KiSx0RIi55PQ+7e/IW9UV9Jmd3bfLNXeD5vJIXLj3Wtzm+uZQrGP0IOXkMkcq7XRNUHD/Q0UurCqNW6meij+Z6lNR/pvE2359FLgw4+NrgCYxOe5kT/uyQvDDaWY3yhmibrmmQmQbe6ivKohb1iR93D8B8Ccg7HUxYk7GY5MzRQ2eTCN8unB808ULqvkzu2ZF7//yGyLUJrGt3zuNvj3eK6oTlAHyUHX1zM5T4gq8WGno69sBLC5Ct//4d58RyElgBvL3SVYuRV2AQFU/U6E2XMy/yxMMrnjRTdCQWJQ==
     - DOCKER_IMAGE_NAME=${AWS_ACCOUNT_ID}.dkr.ecr.eu-west-1.amazonaws.com/${REPO_NAME}
     - DOCKER_TAG=$(echo ${COMMIT}| cut -c1-8)
 
@@ -12,8 +12,6 @@ build:
     - docker tag ${DOCKER_IMAGE_NAME}:${DOCKER_TAG} ${DOCKER_IMAGE_NAME}:latest
   post_ci:
     - aws configure set default.region eu-west-1
-    # - aws configure set aws_access_key_id ${ECR_ACCESS_KEY_ID}
-    # - aws configure set aws_secret_access_key ${ECR_SECRET_ACCESS_KEY}
     - if ! aws ecr describe-repositories --repository-names ${REPO_NAME} > /dev/null 2>&1; then aws ecr create-repository --repository-name ${REPO_NAME}; fi
     - $(aws ecr get-login)
     - docker push ${DOCKER_IMAGE_NAME}:${DOCKER_TAG}
