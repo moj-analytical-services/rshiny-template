@@ -1,0 +1,5 @@
+jobs:
+  - name: rshiny-example_runCI
+    type: runCI
+    steps:
+      - OUT: app-image

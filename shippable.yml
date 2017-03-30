@@ -10,6 +10,7 @@ build:
   ci:
     - docker build -t ${DOCKER_IMAGE_NAME}:${DOCKER_TAG} .
     - docker tag ${DOCKER_IMAGE_NAME}:${DOCKER_TAG} ${DOCKER_IMAGE_NAME}:latest
+    - echo "tag=${DOCKER_TAG}" >> $JOB_STATE/app-image.env
   post_ci:
     - aws configure set default.region eu-west-1
     - if ! aws ecr describe-repositories --repository-names ${REPO_NAME} > /dev/null 2>&1; then aws ecr create-repository --repository-name ${REPO_NAME}; fi
