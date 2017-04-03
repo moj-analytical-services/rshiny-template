@@ -4,7 +4,7 @@
 
 - service: app
   type: push
-  tag: "{{ printf \"%.25s\" .CommitID }}"
   image_name: 593291632749.dkr.ecr.eu-west-1.amazonaws.com/rshiny-example
+  image_tag: "{{ printf \"%.25s\" .CommitID }}"
   registry: https://593291632749.dkr.ecr.eu-west-1.amazonaws.com
   dockercfg_service: aws_dockercfg
