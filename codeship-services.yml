@@ -9,7 +9,7 @@ deployer:
   encrypted_env_file: secrets.env.encrypted
 
 pusher:
-  image: docker:dind
+  image: docker:17.03.1-ce-dind
   add_docker: true
 
 aws_dockercfg:
