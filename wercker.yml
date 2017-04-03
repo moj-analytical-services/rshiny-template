@@ -38,7 +38,7 @@ build:
     - script:
       name: copy application to webroot
       code: |
-        rm -rf /srv/shiny-server
+        rm -rf /srv/shiny-server/*
         cp * /srv/shiny-server/
 
     - script:
