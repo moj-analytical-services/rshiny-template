@@ -2,5 +2,5 @@ app:
   build: .
   cached: true
 deployer:
-  image: quay.io/mojanalytics/analytics-ci:v2
+  image: quay.io/mojanalytics/analytics-ci:v3
   encrypted_env_file: secrets.env.encrypted
