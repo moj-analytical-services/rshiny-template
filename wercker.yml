@@ -2,7 +2,10 @@
 # Docker Hub https://registry.hub.docker.com/_/debian/
 # Read more about containers on our dev center
 # http://devcenter.wercker.com/docs/containers/index.html
-box: quay.io/mojanalytics/analytics-ci:latest
+box:
+    id: quay.io/mojanalytics/analytics-ci
+    tag: latest
+    registry: quay.io
 # You can also use services such as databases. Read more on our dev center:
 # http://devcenter.wercker.com/docs/services/index.html
 # services:
@@ -23,8 +26,8 @@ pre-build:
     - script:
         name: create or update ECR repository
         code: |
-            aws configure set default.region ${AWS_REGION}
-            if ! aws ecr describe-repositories --repository-names ${WERCKER_GIT_REPOSITORY} > /dev/null 2>&1; then aws ecr create-repository --repository-name ${WERCKER_GIT_REPOSITORY}; fi
+          aws configure set default.region ${AWS_REGION}
+          if ! aws ecr describe-repositories --repository-names ${WERCKER_GIT_REPOSITORY} > /dev/null 2>&1; then aws ecr create-repository --repository-name ${WERCKER_GIT_REPOSITORY}; fi
 
 build:
     # Steps make up the actions in your pipeline
