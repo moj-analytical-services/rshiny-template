@@ -2,9 +2,9 @@ app:
   build: .
   cached: true
 
-pusher:
-  image: docker:17.03.1-ce-dind
-  add_docker: true
+deployer:
+  image: quay.io/mojanalytics/analytics-ci:v4
+  encrypted_env_file: secrets.env.encrypted
 
 aws_dockercfg:
   image: codeship/aws-ecr-dockercfg-generator
