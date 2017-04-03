@@ -1,6 +1,7 @@
 app:
   build:
     image: 593291632749.dkr.ecr.eu-west-1.amazonaws.com/rshiny-example
+    dockerfile: Dockerfile
   cached: true
 deployer:
   image: quay.io/mojanalytics/analytics-ci:v4
