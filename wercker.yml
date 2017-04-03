@@ -40,3 +40,4 @@ build:
         aws-region: $AWS_REGION
         aws-registry-id: $AWS_REGISTRY_ID
         repository: rshiny-example
+
