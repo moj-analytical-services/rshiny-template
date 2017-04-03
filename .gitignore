@@ -1,2 +1,4 @@
 packrat/lib*/
 packrat/src
+secrets.env
+codeship.aes
