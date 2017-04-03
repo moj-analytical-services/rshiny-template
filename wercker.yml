@@ -24,20 +24,31 @@ pre-build:
     # http://devcenter.wercker.com/docs/steps/index.html
   steps:
     - script:
-        name: create or update ECR repository
-        code: |
-          aws configure set default.region ${AWS_REGION}
-          if ! aws ecr describe-repositories --repository-names ${WERCKER_GIT_REPOSITORY} > /dev/null 2>&1; then aws ecr create-repository --repository-name ${WERCKER_GIT_REPOSITORY}; fi
+      name: create or update ECR repository
+      code: |
+        aws configure set default.region ${AWS_REGION}
+        if ! aws ecr describe-repositories --repository-names ${WERCKER_GIT_REPOSITORY} > /dev/null 2>&1; then aws ecr create-repository --repository-name ${WERCKER_GIT_REPOSITORY}; fi
 
 build:
-    # Steps make up the actions in your pipeline
-    # Read more about steps on our dev center:
-    # http://devcenter.wercker.com/docs/steps/index.html
+  box:
+    id: rocker/shiny
+    tag: latest
   steps:
-    - internal/docker-push:
-        aws-access-key: $AWS_ACCESS_KEY_ID
-        aws-secret-key: $AWS_SECRET_ACCESS_KEY
-        aws-region: $AWS_REGION
-        aws-registry-id: $AWS_REGISTRY_ID
-        repository: rshiny-example
 
+    - script:
+      name: copy application to webroot
+      code: |
+        rm -rf /srv/shiny-server
+        cp * /srv/shiny-server
+
+    - script:
+      name: export image tag
+      code: export DOCKER_TAG=$(echo $WERCKER_GIT_COMMIT | tr -c1-8)
+
+    - internal/docker-push:
+      aws-access-key: $AWS_ACCESS_KEY_ID
+      aws-secret-key: $AWS_SECRET_ACCESS_KEY
+      aws-region: $AWS_REGION
+      aws-registry-id: $AWS_REGISTRY_ID
+      repository: $WERCKER_GIT_REPOSITORY
+      tag: $DOCKER_TAG
