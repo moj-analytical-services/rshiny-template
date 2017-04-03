@@ -85,4 +85,3 @@ deploy:
     - script:
       name: get pods
       code: kubectl get pods --all-namespaces
-
