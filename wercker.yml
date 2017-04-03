@@ -24,7 +24,7 @@ pre-build:
     # http://devcenter.wercker.com/docs/steps/index.html
   steps:
     - script:
-      name: create or update ECR repository
+      name: create or update ECR Docker repository
       code: |
         aws configure set default.region ${AWS_REGION}
         if ! aws ecr describe-repositories --repository-names ${WERCKER_GIT_REPOSITORY} > /dev/null 2>&1; then aws ecr create-repository --repository-name ${WERCKER_GIT_REPOSITORY}; fi
@@ -34,7 +34,6 @@ build:
     id: rocker/shiny
     tag: latest
   steps:
-
     - script:
       name: copy application to webroot
       code: |
@@ -52,3 +51,37 @@ build:
       aws-registry-id: $AWS_REGISTRY_ID
       repository: $WERCKER_GIT_REPOSITORY
       tag: $DOCKER_TAG
+
+deploy:
+  steps:
+    - script:
+      name: create kubeconfig file
+      code: |
+        mkdir ~/.kube
+        cat <<EOF > ~/.kube/config
+        apiVersion: v1
+        clusters:
+        - cluster:
+            certificate-authority-data: ${K8S_CA_DATA}
+            server: ${K8S_SERVER}
+          name: ${K8S_NAME}
+        contexts:
+        - context:
+            cluster: ${K8S_NAME}
+            user: ${K8S_NAME}
+          name: ${K8S_NAME}
+        current-context: ${K8S_NAME}
+        kind: Config
+        preferences: {}
+        users:
+        - name: ${K8S_NAME}
+          user:
+            client-certificate-data: ${K8S_CLIENT_CERT}
+            client-key-data: ${K8S_CLIENT_KEY}
+            password: ${K8S_PASSWORD}
+            username: ${K8S_USERNAME}
+        EOF
+
+    - script:
+      name: get pods
+      code: kubectl get pods --all-namespaces
