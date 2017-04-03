@@ -39,7 +39,7 @@ build:
       name: copy application to webroot
       code: |
         rm -rf /srv/shiny-server
-        cp * /srv/shiny-server
+        cp * /srv/shiny-server/
 
     - script:
       name: export image tag
