@@ -39,7 +39,7 @@ build:
       name: copy application to webroot
       code: |
         rm -rf /srv/shiny-server/*
-        cp * /srv/shiny-server/
+        cp $WERCKER_SOURCE_DIR/* /srv/shiny-server/
 
     - script:
       name: export image tag
