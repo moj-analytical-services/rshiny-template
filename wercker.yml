@@ -38,6 +38,10 @@ build:
     - script:
       name: copy application to webroot
       code: |
+        pwd
+        ls -la
+        ls -la $WERCKER_SOURCE_DIR
+        ls -la /srv/shiny-server
         rm -rf /srv/shiny-server/*
         cp $WERCKER_SOURCE_DIR/* /srv/shiny-server/
 
