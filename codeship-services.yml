@@ -1,6 +1,11 @@
 app:
-  build: .
+  build:
+    image: 593291632749.dkr.ecr.eu-west-1.amazonaws.com/rshiny-example
   cached: true
 deployer:
-  image: quay.io/mojanalytics/analytics-ci:v3
+  image: quay.io/mojanalytics/analytics-ci:v4
   encrypted_env_file: secrets.env.encrypted
+aws_dockercfg:
+  image: codeship/aws-ecr-dockercfg-generator
+  add_docker: true
+  encrypted_env_file: aws.env.encrypted
