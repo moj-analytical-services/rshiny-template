@@ -1,4 +1,6 @@
 node {
+    checkout scm
+
     stage('Configure Docker registry') {
         withCredentials([usernamePassword(credentialsId: 'aws-ecr',
                                           passwordVariable: 'AWS_SECRET_ACCESS_KEY',
