@@ -6,6 +6,13 @@ node {
         returnStdout: true
     ).trim()
 
+    env.DOCKER_TAG = sh(
+        script: "git rev-parse HEAD | cut -c1-8",
+        returnStdout: true
+    ).trim()
+
+    env.DOCKER_REGISTRY = "593291632749.dkr.ecr.eu-west-1.amazonaws.com"
+
     stage('Configure Docker registry') {
         withCredentials([usernamePassword(credentialsId: 'aws-ecr',
                                           passwordVariable: 'AWS_SECRET_ACCESS_KEY',
@@ -22,12 +29,18 @@ node {
         }
     }
 
-    stage ('Docker test') {
-        sh 'docker images'
+    stage('Docker build') {
+        sh """
+        docker build \
+            -t ${env.DOCKER_REGISTRY}/${env.REPO_NAME}:${env.DOCKER_TAG} \
+            -t ${env.DOCKER_REGISTRY}/${env.REPO_NAME}:latest \
+            .
+        """
     }
 
-    stage('Build') {
-        echo 'Building..'
+    stage('Docker push') {
+        sh "docker push ${env.DOCKER_REGISTRY}/${env.REPO_NAME}:${env.DOCKER_TAG}"
+        sh "docker push ${env.DOCKER_REGISTRY}/${env.REPO_NAME}:latest"
     }
 
     stage('Deploy') {
