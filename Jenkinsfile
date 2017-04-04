@@ -2,9 +2,14 @@ pipeline {
     agent any
 
     stages {
-        stage('Configure') {
+        stage('Configure Docker registry') {
             steps {
-                echo 'Configuring..'
+                withCredentials([usernamePassword(credentialsId: 'aws-ecr',
+                                                  passwordVariable: 'AWS_SECRET_ACCESS_KEY',
+                                                  usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
+                    sh 'echo $AWS_ACCESS_KEY_ID'
+                    sh 'echo $AWS_SECRET_ACCESS_KEY'
+                }
             }
         }
         stage('Build') {
