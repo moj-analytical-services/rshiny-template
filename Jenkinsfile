@@ -6,7 +6,7 @@ node {
                                           passwordVariable: 'AWS_SECRET_ACCESS_KEY',
                                           usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
 
-            def env.REPO_NAME = repoName()
+            env.REPO_NAME = repoName {}
 
             sh '''
             aws configure set default.region eu-west-1
