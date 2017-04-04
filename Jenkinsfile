@@ -7,8 +7,15 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'aws-ecr',
                                                   passwordVariable: 'AWS_SECRET_ACCESS_KEY',
                                                   usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
-                    sh 'echo $AWS_ACCESS_KEY_ID'
-                    sh 'echo $AWS_SECRET_ACCESS_KEY'
+                    sh """
+                    aws configure set default.region eu-west-1
+                    aws configure set aws_access_key_id $AWS_SECRET_ACCESS_KEY
+                    aws configure set aws_secret_access_key $AWS_ACCESS_KEY_ID
+
+                    if ! aws ecr describe-repositories --repository-names ${env.JOB_NAME} > /dev/null 2>&1; then
+                        aws ecr create-repository --repository-name ${env.JOB_NAME};
+                    fi
+                    """
                 }
             }
         }
