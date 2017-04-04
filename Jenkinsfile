@@ -11,8 +11,8 @@ node {
             // sh 'echo $REPO_NAME'
 
             sh """
-            JOB_NAME: ${env.JOB_NAME}
-            JOB_BASE_NAME: ${env.JOB_BASE_NAME}
+            echo ${env.JOB_NAME}
+            echo ${env.JOB_BASE_NAME}
             """
 
             // sh '''
