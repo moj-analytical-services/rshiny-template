@@ -6,9 +6,14 @@ node {
                                           passwordVariable: 'AWS_SECRET_ACCESS_KEY',
                                           usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
 
-            def REPO_NAME = repoName()
+            // def REPO_NAME = repoName()
 
-            sh 'echo $REPO_NAME'
+            // sh 'echo $REPO_NAME'
+
+            sh '''
+            JOB_NAME: ${env.JOB_NAME}
+            JOB_BASE_NAME: ${env.JOB_BASE_NAME}
+            '''
 
             // sh '''
             // aws configure set default.region eu-west-1
