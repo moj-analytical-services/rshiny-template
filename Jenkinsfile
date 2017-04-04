@@ -1,18 +1,15 @@
 pipeline {
     agent any
 
-
-    @Field def REPO_NAME = sh(
-        script: 'basename `git rev-parse --show-toplevel`',
-        returnStdout: true
-    ).trim()
-
     stages {
         stage('Configure Docker registry') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'aws-ecr',
                                                   passwordVariable: 'AWS_SECRET_ACCESS_KEY',
                                                   usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
+
+                    REPO_NAME = repoName()
+
                     sh """
                     aws configure set default.region eu-west-1
                     aws configure set aws_access_key_id $AWS_SECRET_ACCESS_KEY
@@ -36,4 +33,12 @@ pipeline {
             }
         }
     }
+}
+
+@NonCPS
+def repoName() {
+    sh(
+        script: 'basename `git rev-parse --show-toplevel`',
+        returnStdout: true
+    ).trim()
 }
