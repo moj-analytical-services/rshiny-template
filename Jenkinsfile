@@ -10,10 +10,10 @@ node {
 
             // sh 'echo $REPO_NAME'
 
-            sh '''
+            sh """
             JOB_NAME: ${env.JOB_NAME}
             JOB_BASE_NAME: ${env.JOB_BASE_NAME}
-            '''
+            """
 
             // sh '''
             // aws configure set default.region eu-west-1
