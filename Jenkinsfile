@@ -6,7 +6,7 @@ node {
                                           passwordVariable: 'AWS_SECRET_ACCESS_KEY',
                                           usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
 
-            env.REPO_NAME = repoName {}
+            env.REPO_NAME = repoName()
 
             sh '''
             aws configure set default.region eu-west-1
@@ -27,7 +27,6 @@ node {
     }
 }
 
-@NonCPS
 def repoName() {
     sh(
         script: 'basename `git rev-parse --show-toplevel`',
