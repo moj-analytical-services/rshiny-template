@@ -15,8 +15,8 @@ node {
 
     stage('Configure Docker registry') {
         withCredentials([usernamePassword(credentialsId: 'aws-ecr',
-                                          passwordVariable: 'AWS_SECRET_ACCESS_KEY',
-                                          usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
+                                          passwordVariable: 'AWS_ACCESS_KEY_ID',
+                                          usernameVariable: 'AWS_SECRET_ACCESS_KEY')]) {
             sh """
             aws configure set default.region eu-west-1
             aws configure set aws_access_key_id $AWS_SECRET_ACCESS_KEY
