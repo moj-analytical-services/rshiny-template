@@ -1,12 +1,11 @@
 pipeline {
     agent any
 
-    environment {
-        REPO_NAME = sh(
-            script: 'basename `git rev-parse --show-toplevel`',
-            returnStdout: true
-        ).trim()
-    }
+
+    @Field def REPO_NAME = sh(
+        script: 'basename `git rev-parse --show-toplevel`',
+        returnStdout: true
+    ).trim()
 
     stages {
         stage('Configure Docker registry') {
