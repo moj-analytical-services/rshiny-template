@@ -39,7 +39,6 @@ node {
     }
 
     stage('Docker push') {
-        sh "cat ~/.aws/credentials"
         sh "\$(aws ecr get-login)"
         sh "docker push ${env.DOCKER_REGISTRY}/${env.REPO_NAME}:${env.DOCKER_TAG}"
         sh "docker push ${env.DOCKER_REGISTRY}/${env.REPO_NAME}:latest"
