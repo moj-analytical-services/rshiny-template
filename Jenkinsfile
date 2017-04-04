@@ -1,6 +1,11 @@
 node {
     checkout scm
 
+    env.REPO_NAME = sh(
+        script: "echo $env.JOB_NAME | cut -f 2 -d /",
+        returnStdout: true
+    ).trim()
+
     stage('Configure Docker registry') {
         withCredentials([usernamePassword(credentialsId: 'aws-ecr',
                                           passwordVariable: 'AWS_SECRET_ACCESS_KEY',
@@ -8,12 +13,14 @@ node {
 
             // def REPO_NAME = repoName()
 
-            // sh 'echo $REPO_NAME'
+            // sh "echo $JOB_NAME | cut -f 2 -d /"
 
-            sh """
-            echo ${env.JOB_NAME}
-            echo ${env.JOB_BASE_NAME}
-            """
+            sh "echo $REPO_NAME"
+
+            // sh """
+            // echo ${env.JOB_NAME}
+            // echo ${env.JOB_BASE_NAME}
+            // """
 
             // sh '''
             // aws configure set default.region eu-west-1
@@ -34,9 +41,9 @@ node {
     }
 }
 
-def repoName() {
-    sh(
-        script: 'basename `git rev-parse --show-toplevel`',
-        returnStdout: true
-    ).trim()
-}
+// def repoName(jobName) {
+//     sh(
+//         script: "echo $JOB_NAME | cut -f 2 -d /",
+//         returnStdout: true
+//     ).trim()
+// }
