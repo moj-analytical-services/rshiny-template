@@ -21,9 +21,15 @@ node {
             """
         }
     }
+
+    stage ('Docker test') {
+        sh 'docker images'
+    }
+
     stage('Build') {
         echo 'Building..'
     }
+
     stage('Deploy') {
         echo 'Deploying....'
     }
