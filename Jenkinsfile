@@ -56,7 +56,8 @@ node {
 
     stage('Deploy application') {
         sh """
-        helm upgrade -i -n ${env.REPO_NAME} \
+        helm upgrade -i \
+            ${env.REPO_NAME} \
             analytics-platform-ops/charts/shiny-app \
             --namespace apps-prod \
             --set app.name=${env.REPO_NAME} \
