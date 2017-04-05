@@ -45,11 +45,14 @@ node {
     }
 
     stage('Checkout Helm charts') {
-        checkout "https://github.com/ministryofjustice/analytics-platform-ops.git"
+        dir('analytics-platform-ops') {
+            git url: 'https://github.com/ministryofjustice/analytics-platform-ops.git'
+        }
     }
 
     stage('Init Helm client') {
         sh "helm init -c"
+        sh "ls -la analytics-platform-ops"
     }
 }
 
