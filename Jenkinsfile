@@ -62,7 +62,7 @@ node {
             --set shinyApp.docker.repository=${env.DOCKER_REGISTRY}/${env.REPO_NAME} \
             --set shinyApp.docker.tag=${env.DOCKER_TAG} \
             --wait
-        ""
+        """
     }
 }
 
