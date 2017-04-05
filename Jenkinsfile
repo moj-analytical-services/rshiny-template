@@ -64,7 +64,7 @@ node {
         """
     }
 
-    stage('Send Slack notification') {
-        slackSend color: 'good', message: "Application deployed: https://${env.REPO_NAME}.${env.APP_BASE_DOMAIN}/"
-    }
+    // stage('Send Slack notification') {
+    //     slackSend color: 'good', message: "Application deployed: https://${env.REPO_NAME}.${env.APP_BASE_DOMAIN}/"
+    // }
 }
