@@ -44,17 +44,13 @@ node {
         sh "docker push ${env.DOCKER_REGISTRY}/${env.REPO_NAME}:latest"
     }
 
-    stage('Checkout Helm charts') {
+    stage('Deploy application') {
         dir('analytics-platform-ops') {
             git url: 'https://github.com/ministryofjustice/analytics-platform-ops.git'
         }
-    }
 
-    stage('Init Helm client') {
         sh "helm init -c"
-    }
 
-    stage('Deploy application') {
         sh """
         helm upgrade -i \
             ${env.REPO_NAME} \
