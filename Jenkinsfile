@@ -44,8 +44,12 @@ node {
         sh "docker push ${env.DOCKER_REGISTRY}/${env.REPO_NAME}:latest"
     }
 
-    stage('Deploy') {
-        echo 'Deploying....'
+    stage('Checkout Helm charts') {
+        checkout "https://github.com/ministryofjustice/analytics-platform-ops.git"
+    }
+
+    stage('Init Helm client') {
+        sh "helm init -c"
     }
 }
 
