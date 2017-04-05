@@ -56,7 +56,9 @@ node {
 
     stage('Deploy application') {
         sh """
-        helm install -n ${env.REPO_NAME} charts/shiny-app --namespace apps-prod \
+        helm install -n ${env.REPO_NAME} \
+            analytics-platform-ops/charts/shiny-app \
+            --namespace apps-prod \
             --set app.name=${env.REPO_NAME} \
             --set app.baseHose=${env.APP_BASE_DOMAIN} \
             --set shinyApp.docker.repository=${env.DOCKER_REGISTRY}/${env.REPO_NAME} \
