@@ -52,7 +52,17 @@ node {
 
     stage('Init Helm client') {
         sh "helm init -c"
-        sh "ls -la analytics-platform-ops"
+    }
+
+    stage('Deploy application') {
+        sh """
+        helm install -n ${env.REPO_NAME} charts/shiny-app --namespace apps-prod \
+            --set app.name=${env.REPO_NAME} \
+            --set app.baseHose=${env.APP_BASE_DOMAIN} \
+            --set shinyApp.docker.repository=${env.DOCKER_REGISTRY}/${env.REPO_NAME} \
+            --set shinyApp.docker.tag=${env.DOCKER_TAG} \
+            --wait
+        ""
     }
 }
 
