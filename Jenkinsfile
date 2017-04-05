@@ -60,7 +60,7 @@ node {
             analytics-platform-ops/charts/shiny-app \
             --namespace apps-prod \
             --set app.name=${env.REPO_NAME} \
-            --set app.baseHose=${env.APP_BASE_DOMAIN} \
+            --set app.baseHost=${env.APP_BASE_DOMAIN} \
             --set shinyApp.docker.repository=${env.DOCKER_REGISTRY}/${env.REPO_NAME} \
             --set shinyApp.docker.tag=${env.DOCKER_TAG} \
             --wait
