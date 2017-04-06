@@ -1,21 +1,22 @@
-FROM rocker/shiny
+FROM rocker/shiny:latest
 
-ENV SHINY_APP_PATH /srv/shiny-server
+WORKDIR /srv/shiny-server
 
 # Cleanup shiny-server dir
-RUN rm -rf $SHINY_APP_PATH/*
+RUN rm -rf ./*
 
 # Make sure the directory for individual app logs exists
 RUN mkdir -p /var/log/shiny-server
 
-# Install packrat
-RUN R -e "install.packages('packrat')"
+# Add Packrat files individually so that next install command
+# can be cached as an image layer separate from application code
+ADD packrat packrat
+
+# Install packrat itself then packages from packrat.lock
+RUN R -e "install.packages('packrat'); packrat::restore()"
 
 # Add shiny app code
-ADD . $SHINY_APP_PATH
-
-# Install shiny app dependencies
-RUN if [ -f $SHINY_APP_PATH/packrat/packrat.lock ]; then cd $SHINY_APP_PATH && R -e "packrat::restore()"; fi;
+ADD . .
 
 # Shiny runs as 'shiny' user, adjust app directory permissions
-RUN chown -R shiny:shiny $SHINY_APP_PATH
+RUN chown -R shiny:shiny .
