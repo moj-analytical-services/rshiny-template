@@ -31,7 +31,7 @@ node {
 
     stage('Docker build') {
         sh """
-        docker build \
+        docker build --pull \
             -t ${env.DOCKER_REGISTRY}/${env.REPO_NAME}:${env.DOCKER_TAG} \
             -t ${env.DOCKER_REGISTRY}/${env.REPO_NAME}:latest \
             .
