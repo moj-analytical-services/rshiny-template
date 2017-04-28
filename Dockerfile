@@ -22,7 +22,7 @@ ADD . .
 RUN chown -R shiny:shiny .
 
 # Install dependency on xml2
-RUN apt-get install xml2-config --yes
+RUN apt-get install libxml2-dev --yes
 
 # APT Cleanup
 RUN apt-get clean && rm -rf /var/lib/apt/lists/
