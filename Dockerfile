@@ -20,3 +20,9 @@ ADD . .
 
 # Shiny runs as 'shiny' user, adjust app directory permissions
 RUN chown -R shiny:shiny .
+
+# Install dependency on xml2
+RUN apt-get install xml2-config --yes
+
+# APT Cleanup
+RUN apt-get clean && rm -rf /var/lib/apt/lists/
