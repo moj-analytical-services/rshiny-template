@@ -8,6 +8,10 @@ RUN rm -rf ./*
 # Make sure the directory for individual app logs exists
 RUN mkdir -p /var/log/shiny-server
 
+# Install dependency on xml2
+RUN apt-get update
+RUN apt-get install libxml2-dev --yes
+
 # Add Packrat files individually so that next install command
 # can be cached as an image layer separate from application code
 ADD packrat packrat
@@ -20,9 +24,6 @@ ADD . .
 
 # Shiny runs as 'shiny' user, adjust app directory permissions
 RUN chown -R shiny:shiny .
-
-# Install dependency on xml2
-RUN apt-get install libxml2-dev --yes
 
 # APT Cleanup
 RUN apt-get clean && rm -rf /var/lib/apt/lists/
