@@ -27,3 +27,7 @@ RUN chown -R shiny:shiny .
 
 # APT Cleanup
 RUN apt-get clean && rm -rf /var/lib/apt/lists/
+
+# Run shiny-server on port 80
+RUN sed -i 's/3838/80/g' /etc/shiny-server/shiny-server.conf
+EXPOSE 80
