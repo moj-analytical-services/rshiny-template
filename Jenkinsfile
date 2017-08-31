@@ -15,7 +15,7 @@ pipeline {
       defaultValue: true
     )
 
-    stringParam(
+    string(
       name: 'AWS_IAM_ROLE',
       description: 'IAM role that the webapp will assume (optional)',
       defaultValue: '',
