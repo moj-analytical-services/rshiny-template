@@ -1,0 +1,7 @@
+{
+  "mojanalytics-deploy": "v0.2.3",
+  "disable_authentication": false,
+  "allowed_ip_ranges": [
+    "DOM1"
+  ]
+}
