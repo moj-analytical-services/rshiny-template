@@ -1,4 +1,4 @@
-FROM rocker/shiny@sha256:627a2b7b3b6b1f6e33d37bdba835bbbd854acf70d74010645af71fc3ff6c32b6
+FROM quay.io/mojanalytics/rshiny:v1.0.0 
 
 WORKDIR /srv/shiny-server
 
