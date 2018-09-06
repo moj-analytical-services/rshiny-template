@@ -1,4 +1,4 @@
-FROM quay.io/mojanalytics/rshiny:v1.0.0 
+FROM quay.io/mojanalytics/rshiny:v1.0.1
 
 WORKDIR /srv/shiny-server
 
