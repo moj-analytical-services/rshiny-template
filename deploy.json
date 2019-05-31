@@ -3,5 +3,6 @@
   "disable_authentication": false,
   "allowed_ip_ranges": [
     "DOM1"
-  ]
+  ],
+  "port": 8080
 }
