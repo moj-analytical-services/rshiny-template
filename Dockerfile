@@ -1,36 +1,31 @@
-FROM rocker/shiny@sha256:627a2b7b3b6b1f6e33d37bdba835bbbd854acf70d74010645af71fc3ff6c32b6
+FROM quay.io/mojanalytics/rshiny:3.5.1
+
+ENV PATH="/opt/shiny-server/bin:/opt/shiny-server/ext/node/bin:${PATH}"
+ENV SHINY_APP=/srv/shiny-server
+ENV NODE_ENV=production
 
 WORKDIR /srv/shiny-server
 
-# Cleanup shiny-server dir
-RUN rm -rf ./*
+# ENV SHINY_GAID <your google analytics token here>
 
-# Make sure the directory for individual app logs exists
-RUN mkdir -p /var/log/shiny-server
-
-# Install dependency on xml2 and cleanup
-RUN apt-get update && \
-apt-get install --yes libxml2-dev libssl-dev && \
-apt-get clean && rm -rf /var/lib/apt/lists/
-
-# Add Packrat files individually so that next install command
+# Add environment file individually so that next install command
 # can be cached as an image layer separate from application code
-ADD packrat packrat
+ADD environment.yml environment.yml
 
 # Install packrat itself then packages from packrat.lock
-RUN R -e "install.packages('packrat'); packrat::restore()"
+RUN conda env update --file environment.yml -n base
+RUN npm i -g ministryofjustice/analytics-platform-shiny-server#v0.0.3
+
+## -----------------------------------------------------
+## Uncomment if still using packrat alongside conda
+## Install packrat itself then packages from packrat.lock
+# ADD packrat packrat
+# RUN R -e "install.packages('packrat'); packrat::restore()"
+## ------------------------------------------------------
 
 # Add shiny app code
 ADD . .
 
-# Shiny runs as 'shiny' user, adjust permissions
-RUN chown -R shiny:shiny /var/log/shiny-server && \
-chown -R shiny:shiny /usr/local/lib/R/site-library && \
-chown -R shiny:shiny /var/lib/shiny-server && \
-chown -R shiny:shiny .
-
-# Run shiny-server on port 80
-RUN sed -i 's/3838/8080/g' /etc/shiny-server/shiny-server.conf
-EXPOSE 8080
-
 USER shiny
+CMD analytics-platform-shiny-server
+EXPOSE 9999
