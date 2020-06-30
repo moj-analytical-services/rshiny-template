@@ -14,7 +14,7 @@ ADD environment.yml environment.yml
 
 # Install packrat itself then packages from packrat.lock
 RUN conda env update --file environment.yml -n base
-RUN npm i -g ministryofjustice/analytics-platform-shiny-server#v0.0.3
+RUN npm i -g ministryofjustice/analytics-platform-shiny-server#v0.0.5
 
 ## -----------------------------------------------------
 ## Uncomment if still using packrat alongside conda
