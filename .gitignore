@@ -1,2 +1,5 @@
 packrat/lib*/
 packrat/src
+.Rproj.user
+*.Rproj
+.Rprofile
