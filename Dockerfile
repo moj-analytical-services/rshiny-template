@@ -13,6 +13,12 @@ RUN npm i -g ministryofjustice/analytics-platform-shiny-server#v0.0.5
 # Add shiny app code
 ADD . .
 
+# use renv for packages
+ENV RENV_VERSION 0.13.2
+RUN R -e "install.packages('remotes', repos = c(CRAN = 'https://cloud.r-project.org'))"
+RUN R -e "remotes::install_github('rstudio/renv@${RENV_VERSION}')"
+RUN R -e 'renv::restore()'
+
 USER shiny
 CMD analytics-platform-shiny-server
 EXPOSE 9999
