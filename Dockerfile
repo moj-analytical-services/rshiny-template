@@ -1,4 +1,4 @@
-FROM 593291632749.dkr.ecr.eu-west-1.amazonaws.com/rshiny:4.1
+FROM 593291632749.dkr.ecr.eu-west-1.amazonaws.com/rshiny:local
 
 ENV PATH="/opt/shiny-server/bin:/opt/shiny-server/ext/node/bin:${PATH}"
 ENV SHINY_APP=/srv/shiny-server
@@ -10,14 +10,14 @@ WORKDIR /srv/shiny-server
 
 RUN npm i -g ministryofjustice/analytics-platform-shiny-server#v0.0.5
 
-# Add shiny app code
-ADD . .
 
 # use renv for packages
-ENV RENV_VERSION 0.13.2
-RUN R -e "install.packages('remotes', repos = c(CRAN = 'https://cloud.r-project.org'))"
-RUN R -e "remotes::install_github('rstudio/renv@${RENV_VERSION}')"
+ADD renv.lock renv.lock
+RUN R -e "install.packages('renv')"
 RUN R -e 'renv::restore()'
+
+# Add shiny app code
+ADD . .
 
 USER shiny
 CMD analytics-platform-shiny-server
