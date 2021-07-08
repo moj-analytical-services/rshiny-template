@@ -1,9 +1,10 @@
 {
   "$schema":"https://cdn.jsdelivr.net/gh/moj-analytical-services/deploy.json@v1.2.0/deploy.schema.json",
   "mojanalytics-deploy": "v1.2.0",
-  "disable_authentication": true,
+  "disable_authentication": false,
   "port": "9999",
   "allowed_ip_ranges": [
-    "All"
-  ]
+    "DOM1"
+  ],
+  "connections": ["email"]
 }
