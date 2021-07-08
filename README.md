@@ -7,7 +7,7 @@ This version of the template is for:
 * R 4.0.5
 * Renv packaging
 
-If you want R 3.5.1 and Conda packaging you will need to use the `R-351` branch.
+Once R4.0.5 and the newer RStudio are standard this should likely become the master branch.
 
 See instructions: https://user-guidance.services.alpha.mojanalytics.xyz/rshiny-app.html#use-the-app-template
 
