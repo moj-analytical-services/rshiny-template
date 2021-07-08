@@ -8,7 +8,7 @@ WORKDIR /srv/shiny-server
 
 # ENV SHINY_GAID <your google analytics token here>
 
-RUN npm i -g ministryofjustice/analytics-platform-shiny-server#v0.0.5
+RUN npm i -g ministryofjustice/analytics-platform-shiny-server#v0.0.6
 
 # Add shiny app code
 ADD . .
