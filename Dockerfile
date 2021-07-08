@@ -10,7 +10,6 @@ WORKDIR /srv/shiny-server
 
 RUN npm i -g ministryofjustice/analytics-platform-shiny-server#v0.0.5
 
-
 # use renv for packages
 ADD renv.lock renv.lock
 RUN R -e "install.packages('renv')"
