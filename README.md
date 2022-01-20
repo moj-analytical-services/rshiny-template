@@ -9,7 +9,7 @@ This version of the template is for:
 
 See instructions: https://user-guidance.services.alpha.mojanalytics.xyz/rshiny-app.html#use-the-app-template
 
-If you want a template that works for R4.0.5 with Renv, you want the `R405` branch.
+If you want a template that works for R4.0.5 with Renv, use [the template for 4.0.5](https://github.com/moj-analytical-services/rshiny-template-405).
 
 Once you've copied this template, delete the contents of this README up to this point, and complete the suggested bits below.
 
