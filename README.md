@@ -1,5 +1,9 @@
 # RShiny app template
 
+> Please use https://github.com/moj-analytical-services/rshiny-template-405 instead of this version of the template
+
+----
+
 This repo is a template for an RShiny app, which will run on the Analytical Platform.
 
 This version of the template is for:
